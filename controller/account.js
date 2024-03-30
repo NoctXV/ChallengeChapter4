@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 module.exports = {
-    // create users
+    // create account
     create: async (req, res, next) => {
         try {
             let { users_id, bank_name, bank_account_number, balance } = req.body
@@ -46,7 +46,7 @@ module.exports = {
                     balance,
                 },
                 include: {
-                    user: true,
+                    users: true,
                 }
             })
 
@@ -95,9 +95,9 @@ module.exports = {
                     id: parseInt(id)
                 },
                 include: {
-                    user: {
+                    users: {
                         include: {
-                            profile: true
+                            profiles: true
                         }
                     }
                 }

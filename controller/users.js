@@ -26,7 +26,7 @@ module.exports = {
                     name,
                     email,
                     password,
-                    profile: {
+                    profiles: {
                         create: {
                             address,
                             identity_type,
@@ -35,7 +35,7 @@ module.exports = {
                     }
                 },
                 include: {
-                    profile: true,
+                    profiles: true,
                 }
             })
 
@@ -99,7 +99,7 @@ module.exports = {
                     id: parseInt(id)
                 },
                 include: {
-                    profile: true
+                    profiles: true
                 }
             });
 

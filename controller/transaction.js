@@ -76,12 +76,12 @@ module.exports = {
                 include: {
                     source_account_id: {
                         include: {
-                            user: true
+                            users: true
                         }
                     },
                     destination_account_id: {
                         include: {
-                            user: true
+                            users: true
                         }
                     }
                 }
