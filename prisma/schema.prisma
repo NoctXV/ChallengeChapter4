@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String
+  password     String
+  bankaccounts bankaccount[]
+  profiles     profiles?
+  transaction  transaction[]
+}
+
+model bankaccount {
+  id                  Int           @id @default(autoincrement())
+  bank_name           String
+  bank_account_number Int
+  balance             Int
+  users               users?        @relation(fields: [users_id], references: [id])
+  users_id            Int?
+  transaction         transaction[]
+}
+
+model profiles {
+  id              Int    @id @default(autoincrement())
+  identity_type   Int
+  identity_number Int
+  address         String
+  user            users? @relation(fields: [users_id], references: [id])
+  users_id        Int?   @unique
+}
+
+// Tabel penampung
+model transaction {
+  id                     Int          @id @default(autoincrement())
+  amount                 Int
+  source_account_id      Int
+  destination_account_id Int
+  users                  users?       @relation(fields: [users_id], references: [id])
+  users_id               Int?
+  bankaccount            bankaccount? @relation(fields: [bankaccount_id], references: [id])
+  bankaccount_id         Int?
+}
